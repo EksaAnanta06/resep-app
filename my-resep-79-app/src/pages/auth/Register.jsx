@@ -132,7 +132,7 @@ const Register = () => {
                                 handle={{ ...form.register('namaLengkap') }}
                                 type={'text'}
                                 classNameLabel={'w-full text-gray-500'}
-                                labelText='Nama Lengkap'
+                                labelText='Full Name'
                                 className={'p-[8px] w-full rounded border border-[#B4B4BB] border-solid relative'}
                                 placeholder={'Nama Lengkap'}
                                 erorMessage={form.formState.errors.namaLengkap?.message}
@@ -141,18 +141,18 @@ const Register = () => {
                                 handle={{ ...form.register('password') }}
                                 type={'password'}
                                 classNameLabel={'w-full text-gray-500'}
-                                labelText='Kata Sandi'
+                                labelText='Password'
                                 className={'p-[8px] w-full rounded border border-[#B4B4BB] border-solid relative'}
-                                placeholder={'Kata Sandi'}
+                                placeholder={'Password'}
                                 erorMessage={form.formState.errors.password?.message}
                             />
                             <Input
                                 handle={{ ...form.register('confirmPassword') }}
                                 type={'password'}
                                 classNameLabel={'w-full text-gray-500'}
-                                labelText='Konfirmasi Kata Sandi'
+                                labelText='Confirm Password'
                                 className={'p-[8px] w-full rounded border border-[#B4B4BB] border-solid relative'}
-                                placeholder={'Konfirmasi Kata Sandi'}
+                                placeholder={'Confirm Password'}
                                 erorMessage={form.formState.errors.confirmPassword?.message}
                             />
                             <button className='bg-[#01BFBF] text-white p-[8px] rounded'>

@@ -113,7 +113,7 @@ const Login = () => {
                                 handle={{ ...form.register('password') }}
                                 type={'password'}
                                 classNameLabel={'w-full text-gray-500'}
-                                labelText={"Kata Sandi"}
+                                labelText={"Password"}
                                 className={'p-[8px] w-full rounded border border-[#B4B4BB] border-solid relative'}
                                 placeholder={'Password'}
                                 erorMessage={form.formState.errors.password?.message} >
