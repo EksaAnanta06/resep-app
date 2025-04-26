@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 const RecipeCard = ({ recipe, onEdit, onDelete, onToggleFavorite }) => {
     const navigate = useNavigate();
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [showRipple, setShowRipple] = useState(false);
+
+    const handleFavoriteClick = (id) => {
+        setIsAnimating(true);
+        setShowRipple(true);
+        onToggleFavorite(id);
+
+        // Reset animation states after animations complete
+        setTimeout(() => {
+            setIsAnimating(false);
+        }, 800);
+
+        setTimeout(() => {
+            setShowRipple(false);
+        }, 600);
+    };
 
     return (
         <div className={`bg-white shadow-lg rounded-lg w-[85%] md:w-[250px] ${onDelete === undefined ? 'h-[276px]' : ''}`}>
@@ -19,7 +37,7 @@ const RecipeCard = ({ recipe, onEdit, onDelete, onToggleFavorite }) => {
             <div className="p-2">
                 <div className="flex flex-col">
                     <span className="text-sm text-[#01BFBF]">{recipe.category}</span>
-                    <h2 className=" text-lg font-bold text-gray-800">
+                    <h2 className="text-lg font-bold text-gray-800">
                         {recipe.title?.length > 20 ? `${recipe.title.slice(0, 20)}...` : recipe.title}</h2>
                 </div>
                 <div className="flex justify-between mt-1">
@@ -29,17 +47,60 @@ const RecipeCard = ({ recipe, onEdit, onDelete, onToggleFavorite }) => {
                         </svg>
                         <span className="text-sm text-[#01BFBF]">{recipe.duration} Menit</span>
                     </div>
-                    <div className="mr-4 md:mr-0">
-                        <button className="text-teal-500 flex items-center"
-                            onClick={() => onToggleFavorite(recipe.id)}>
-                            {recipe.isFavorite ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.0003 17.5196L16.1503 20.0296C16.9103 20.4896 17.8403 19.8096 17.6403 18.9496L16.5403 14.2296L20.2103 11.0496C20.8803 10.4696 20.5203 9.36958 19.6403 9.29958L14.8103 8.88958L12.9203 4.42958C12.5803 3.61958 11.4203 3.61958 11.0803 4.42958L9.19032 8.87958L4.36032 9.28958C3.48032 9.35958 3.12032 10.4596 3.79032 11.0396L7.46032 14.2196L6.36032 18.9396C6.16032 19.7996 7.09032 20.4796 7.85032 20.0196L12.0003 17.5196Z" fill="#01BFBF" />
-                            </svg> :
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M14.8084 8.87461L19.6484 9.29461C20.5284 9.36461 20.8784 10.4646 20.2084 11.0446L16.5384 14.2246L17.6384 18.9546C17.8384 19.8146 16.9084 20.4946 16.1484 20.0346L11.9984 17.5246L7.84836 20.0246C7.08836 20.4846 6.15836 19.8046 6.35836 18.9446L7.45836 14.2246L3.78836 11.0446C3.11836 10.4646 3.47836 9.36461 4.35836 9.29461L9.18836 8.88461L11.0784 4.42461C11.4184 3.61461 12.5784 3.61461 12.9184 4.42461L14.8084 8.87461ZM8.23836 17.9246L11.9984 15.6546L15.7684 17.9346L14.7684 13.6546L18.0884 10.7746L13.7084 10.3946L11.9984 6.35461L10.2984 10.3846L5.91836 10.7646L9.23836 13.6446L8.23836 17.9246Z" fill="#01BFBF" />
-                                </svg>
-                            }
-                            Favorite
+                    <div className="mr-4 md:mr-0 relative">
+                        <button
+                            className={`text-teal-500 flex items-center transition-all duration-300 ${isAnimating && recipe.isFavorite ? 'scale-110' : ''
+                                }`}
+                            onClick={() => handleFavoriteClick(recipe.id)}
+                        >
+                            <div className="relative">
+                                {recipe.isFavorite ? (
+                                    <>
+                                        {/* Explosion effect when favorited */}
+                                        {showRipple && (
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <div className="absolute w-8 h-8 rounded-full bg-teal-100 opacity-70 animate-ping"></div>
+                                                <div className="absolute w-6 h-6 rounded-full bg-teal-200 opacity-70 animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                                                <div className="absolute w-4 h-4 rounded-full bg-teal-300 opacity-70 animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                                            </div>
+                                        )}
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            className={`transition-transform duration-300 ${isAnimating ? 'scale-125 rotate-12' : ''
+                                                }`}
+                                        >
+                                            <path
+                                                d="M12.0003 17.5196L16.1503 20.0296C16.9103 20.4896 17.8403 19.8096 17.6403 18.9496L16.5403 14.2296L20.2103 11.0496C20.8803 10.4696 20.5203 9.36958 19.6403 9.29958L14.8103 8.88958L12.9203 4.42958C12.5803 3.61958 11.4203 3.61958 11.0803 4.42958L9.19032 8.87958L4.36032 9.28958C3.48032 9.35958 3.12032 10.4596 3.79032 11.0396L7.46032 14.2196L6.36032 18.9396C6.16032 19.7996 7.09032 20.4796 7.85032 20.0196L12.0003 17.5196Z"
+                                                fill={isAnimating ? "#00e5e5" : "#01BFBF"}
+                                                className="transition-colors duration-300"
+                                            />
+                                            {isAnimating && (
+                                                <path
+                                                    d="M12.0003 17.5196L16.1503 20.0296C16.9103 20.4896 17.8403 19.8096 17.6403 18.9496L16.5403 14.2296L20.2103 11.0496C20.8803 10.4696 20.5203 9.36958 19.6403 9.29958L14.8103 8.88958L12.9203 4.42958C12.5803 3.61958 11.4203 3.61958 11.0803 4.42958L9.19032 8.87958L4.36032 9.28958C3.48032 9.35958 3.12032 10.4596 3.79032 11.0396L7.46032 14.2196L6.36032 18.9396C6.16032 19.7996 7.09032 20.4796 7.85032 20.0196L12.0003 17.5196Z"
+                                                    fill="#01BFBF"
+                                                    className="animate-ping opacity-50"
+                                                />
+                                            )}
+                                        </svg>
+                                    </>
+                                ) : (
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M14.8084 8.87461L19.6484 9.29461C20.5284 9.36461 20.8784 10.4646 20.2084 11.0446L16.5384 14.2246L17.6384 18.9546C17.8384 19.8146 16.9084 20.4946 16.1484 20.0346L11.9984 17.5246L7.84836 20.0246C7.08836 20.4846 6.15836 19.8046 6.35836 18.9446L7.45836 14.2246L3.78836 11.0446C3.11836 10.4646 3.47836 9.36461 4.35836 9.29461L9.18836 8.88461L11.0784 4.42461C11.4184 3.61461 12.5784 3.61461 12.9184 4.42461L14.8084 8.87461ZM8.23836 17.9246L11.9984 15.6546L15.7684 17.9346L14.7684 13.6546L18.0884 10.7746L13.7084 10.3946L11.9984 6.35461L10.2984 10.3846L5.91836 10.7646L9.23836 13.6446L8.23836 17.9246Z" fill="#01BFBF" />
+                                    </svg>
+                                )}
+                            </div>
+                            <span
+                                className={`ml-1 transition-all duration-300 ${isAnimating && recipe.isFavorite
+                                        ? 'text-teal-600 font-bold translate-y-px'
+                                        : ''
+                                    }`}
+                            >
+                                {recipe.isFavorite ? 'Favorited' : 'Favorite'}
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -65,7 +126,6 @@ const RecipeCard = ({ recipe, onEdit, onDelete, onToggleFavorite }) => {
                             Hapus
                         </button>
                     </div>}
-
             </div>
         </div>
     );
