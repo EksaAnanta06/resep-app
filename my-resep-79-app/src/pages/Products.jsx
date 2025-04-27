@@ -288,22 +288,22 @@ const Products = () => {
     <div className="flex flex-col items-center justify-center py-12 px-4">
       <img
         src="/empty-recipe.svg"
-        alt="No recipes found"
-        className="w-48 h-48 mb-6 opacity-60"
+        alt="Resep Tidak Ditemukan"
+        className="w-48 h-48 mb-6 opacity-45 font-semibold text-red-600"
         onError={(e) => {
           e.target.onerror = null;
           e.target.src = "https://via.placeholder.com/192?text=No+Recipes";
         }}
       />
-      <h3 className="text-xl font-medium text-gray-700 mb-2">No Recipes Found</h3>
+      <h3 className="text-xl font-medium text-gray-700 mb-2">Resep Tidak Ditemukan</h3>
       <p className="text-gray-500 text-center max-w-md mb-6">
-        We couldn't find any recipes matching your search criteria. Try different keywords or browse all recipes.
+        Saya tidak dapat menemukan resep yang sesuai dengan kriteria pencarian Anda. Coba kata kunci lain atau telusuri semua resep.
       </p>
       <button
         onClick={() => setSearch("")}
         className="px-6 py-2 bg-[#01BFBF] text-white rounded-lg hover:bg-[#01BFBF]/90 transition-colors shadow-md"
       >
-        View All Recipes
+        Lihat Semua Resep
       </button>
     </div>
   );
@@ -319,9 +319,9 @@ const Products = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">Discover Recipes</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">Temukan Recipe</h1>
             <p className="text-gray-600 text-center max-w-2xl mx-auto">
-              Explore our collection of delicious recipes and find your next culinary masterpiece
+              Jelajahi koleksi resep lezat kami dan temukan mahakarya kuliner Anda 
             </p>
           </div>
 
@@ -387,7 +387,7 @@ const Products = () => {
           transition={{ delay: 0.5, duration: 0.5 }}
           className="mt-16 text-center text-gray-600 text-sm"
         >
-          <p>Showing page {page} of {totalPages} • {recipes.length} recipes</p>
+          <p>Halaman {page} Dari {totalPages} • {recipes.length} recipe</p>
         </motion.div>
       </main>
     </div>

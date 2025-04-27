@@ -197,10 +197,10 @@ export const ResepSaya = () => {
   };
 
   return (
-    <div className='min-h-screen bg-gray-100'>
+    <div className='min-h-screen bg-gradient-to-b from-gray-50 to-gray-100'>
       <Header />
       <main className='container mx-auto px-4 sm:px-6 md:px-10 lg:px-20 xl:px-[200px] mt-8 pb-7'>
-        <h2 className="text-2xl mb-4 text-center">Daftar Resep Saya</h2>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">Resep Saya</h1>
         {recipes.length === 0 ? (
           <p className="text-center text-gray-500">Kamu belum punya resep.</p>
         ) : (

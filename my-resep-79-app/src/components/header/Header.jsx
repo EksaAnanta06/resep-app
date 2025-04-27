@@ -49,16 +49,16 @@ export const Header = () => {
 
                 {/* Hamburger (mobile only) */}
                 <button
-                    className="md:hidden text-white bg-[#F47A81]/20 p-2 rounded-lg transition-all duration-200 hover:bg-[#F47A81]/30 active:scale-95"
+                    className="md:hidden text-white p-2 rounded-lg transition-all duration-200  active:scale-95"
                     onClick={() => setMenuOpen(!menuOpen)}
                     aria-label={menuOpen ? "Close menu" : "Open menu"}
                 >
                     <div className="w-6 h-6 relative">
-                        <span className={`absolute h-0.5 w-full bg-white rounded-lg transform transition-all duration-300 ${menuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
+                        <span className={`absolute h-0.5 w-full bg-red-700 rounded-lg transform transition-all duration-300 ${menuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
                             }`}></span>
-                        <span className={`absolute h-0.5 bg-white rounded-lg transform transition-all duration-300 ${menuOpen ? 'w-0 opacity-0 left-1/2' : 'w-full opacity-100 top-3'
+                        <span className={`absolute h-0.5 bg-red-700 rounded-lg transform transition-all duration-300 ${menuOpen ? 'w-0 opacity-0 left-1/2' : 'w-full opacity-100 top-3'
                             }`}></span>
-                        <span className={`absolute h-0.5 w-full bg-white rounded-lg transform transition-all duration-300 ${menuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
+                        <span className={`absolute h-0.5 w-full bg-red-700 rounded-lg transform transition-all duration-300 ${menuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
                             }`}></span>
                     </div>
                 </button>
@@ -95,10 +95,10 @@ export const Header = () => {
                                 onMouseLeave={() => window.innerWidth >= 768 && setShowUserMenu(false)}
                                 onClick={() => window.innerWidth < 768 && setShowUserMenu((prev) => !prev)}
                             >
-                                <div className="flex items-center gap-2">
+                                <div className="flex justify-center items-center gap-2">
                                     <div className={`w-9 h-9 rounded-full flex items-center justify-center ${scrolled ? 'bg-[#F49881]/20' : 'bg-white/20'
                                         } backdrop-blur-sm transition-all duration-300`}>
-                                        <svg width="22" height="22" viewBox="0 0 48 48" fill="none">
+                                        <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
                                             <path fillRule="evenodd" clipRule="evenodd" d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4ZM24 10C27.32 10 30 12.68 30 16C30 19.32 27.32 22 24 22C20.68 22 18 19.32 18 16C18 12.68 20.68 10 24 10ZM12 31.96C14.58 35.84 19 38.4 24 38.4C29 38.4 33.42 35.84 36 31.96C35.94 27.98 27.98 25.8 24 25.8C20 25.8 12.06 27.98 12 31.96Z" fill={scrolled ? "#F47A81" : "white"} />
                                         </svg>
                                     </div>
