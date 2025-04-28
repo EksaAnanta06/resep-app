@@ -17,7 +17,7 @@ const DetailProduct = () => {
 
             try {
                 // Fetch resep detail
-                const res1 = await fetch(`${BASE_URL}/${id}`, {
+                const res1 = await fetch(`${BASE_URL}/recipes/${id}`, {
                     headers: {
                         "Content-Type": "application/json",
                     },
