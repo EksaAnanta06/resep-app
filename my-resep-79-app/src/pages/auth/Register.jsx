@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import InputField from "../../components/form/InputField";
 
 const Register = () => {
+    const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com'
     const [formData, setFormData] = useState({
         username: '',
         fullName: '',
@@ -52,7 +53,7 @@ const Register = () => {
 
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/auth/register', {
+            const response = await fetch(`${BASE_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

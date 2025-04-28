@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/Header.jsx";
 
 const DetailProduct = () => {
+    const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com';
     const { id } = useParams();
     const navigate = useNavigate();
     const [favorites, setFavorites] = useState(false);
@@ -16,7 +17,7 @@ const DetailProduct = () => {
 
             try {
                 // Fetch resep detail
-                const res1 = await fetch(`http://localhost:3000/recipes/${id}`, {
+                const res1 = await fetch(`${BASE_URL}/${id}`, {
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -26,7 +27,7 @@ const DetailProduct = () => {
 
                 // Kalau ada token (user login), cek juga favoritnya
                 if (token) {
-                    const res2 = await fetch(`http://localhost:3000/favorites`, {
+                    const res2 = await fetch(`${BASE_URL}/favorites`, {
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${token}`,
@@ -58,7 +59,7 @@ const DetailProduct = () => {
 
     const toggleFavorite = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/favorites/${id}`, {
+            const response = await fetch(`${BASE_URL}/${id}`, {
                 method: favorites ? "DELETE" : "POST",
                 headers: {
                     "Content-Type": "application/json",

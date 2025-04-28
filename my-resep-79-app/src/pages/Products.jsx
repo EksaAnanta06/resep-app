@@ -6,6 +6,8 @@ import RenderRecipes from "../components/RecipeCard/RenderRecipes.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Products = () => {
+  const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com'
+
   const navigate = useNavigate();
 
   const [totalPages, setTotalPage] = useState(0);
@@ -45,7 +47,7 @@ const Products = () => {
     try {
       // Fetch recipes
       const res1 = await fetch(
-        `http://localhost:3000/recipes?page=${page}&search=${debouncedSearch}`,
+        `${BASE_URL}/recipes?page=${page}&search=${debouncedSearch}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -54,14 +56,21 @@ const Products = () => {
         }
       );
 
+      const contentType = res1.headers.get("content-type");
+      if (contentType && contentType.includes("text/html")) {
+        setError("Ngrok tunneling confirmation required. Please visit the API URL in a browser first and accept the Ngrok confirmation page.");
+        return;
+      }
+
       if (!res1.ok) {
-        throw new Error("Failed to fetch recipes");
+        throw new Error(`Failed to fetch recipes: ${res1.status} ${res1.statusText}`);
       }
 
       const recipeData = await res1.json();
 
+
       // Fetch favorites
-      const res2 = await fetch(`http://localhost:3000/favorites`, {
+      const res2 = await fetch(`${BASE_URL}/favorites`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -73,6 +82,7 @@ const Products = () => {
       }
 
       const favoriteData = await res2.json();
+      console.log({"favorite Data": favoriteData});
       const favoriteIds = favoriteData.map((fav) => fav.id);
 
       // Combine isFavorite with each recipe
@@ -109,7 +119,7 @@ const Products = () => {
       const targetRecipe = recipes.find((r) => r.id === id);
       const method = targetRecipe?.isFavorite ? "DELETE" : "POST";
 
-      const response = await fetch(`http://localhost:3000/favorites/${id}`, {
+      const response = await fetch(`${BASE_URL}/favorites/${id}`, {
         method,
         headers: {
           "Content-Type": "application/json",
@@ -218,7 +228,7 @@ const Products = () => {
             )}
             <button
               onClick={() => setPage(totalPages)}
-              className="flex items-center justify-center w-10 h-10 rounded-full text-gray-700 hover:bg-[#01BFBF]/10 transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-full text-gray-700 hover:bg-[#01BFBF]/10 transition-colors" 
             >
               {totalPages}
             </button>

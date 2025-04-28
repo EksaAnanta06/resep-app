@@ -4,6 +4,7 @@ import Header from '../../components/header/Header';
 import RecipeCard from '../../components/RecipeCard/RecipeCard';
 
 const ResepFavorite = () => {
+  const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com';
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState([]);
 
@@ -13,7 +14,7 @@ const ResepFavorite = () => {
     if (!token) {
       navigate('/login');
     } else {
-      fetch('http://localhost:3000/favorites', {
+      fetch(`${BASE_URL}/favorites`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -37,7 +38,7 @@ const ResepFavorite = () => {
   const handleToggleFavorite = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`http://localhost:3000/favorites/${id}`, {
+      const res = await fetch(`${BASE_URL}/favorites/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

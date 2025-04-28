@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import InputField from "../../components/form/InputField";
 
 const Login = () => {
+    const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com'
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -43,7 +44,7 @@ const Login = () => {
 
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/auth/login', {
+            const response = await fetch(`${BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -4,6 +4,8 @@ import RecipeCard from '../../components/RecipeCard/RecipeCard'
 import { useNavigate } from 'react-router-dom';
 
 export const ResepSaya = () => {
+  const BASE_URL = 'https://learners-matching-rwanda-tariff.trycloudflare.com';
+
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -26,14 +28,14 @@ export const ResepSaya = () => {
   const fetchRecipesAndFavorites = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res1 = await fetch(`http://localhost:3000/recipes/myRecipes`, {
+      const res1 = await fetch(`${BASE_URL}/recipes/myRecipes`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
       });
       const data = await res1.json();
-      const res2 = await fetch(`http://localhost:3000/favorites`, {
+      const res2 = await fetch(`${BASE_URL}/favorites`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
@@ -64,7 +66,7 @@ export const ResepSaya = () => {
 
   const confirmDelete = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/recipes/${recipeToDelete}`, {
+      const res = await fetch(`${BASE_URL}/recipes/${recipeToDelete}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -102,7 +104,7 @@ export const ResepSaya = () => {
     try {
       const targetRecipe = recipes.find((r) => r.id === id);
       const method = targetRecipe?.isFavorite ? "DELETE" : "POST";
-      await fetch(`http://localhost:3000/favorites/${id}`, {
+      await fetch(`${BASE_URL}/favorites/${id}`, {
         method,
         headers: {
           "Content-Type": "application/json",

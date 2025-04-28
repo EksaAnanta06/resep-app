@@ -62,6 +62,7 @@ const Toast = ({ isOpen, onClose, message, type }) => {
 };
 
 const AddRecipes = () => {
+    const BASE_URL = "https://learners-matching-rwanda-tariff.trycloudflare.com"
     const navigate = useNavigate();
 
     // Toast notification state
@@ -111,7 +112,7 @@ const AddRecipes = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("http://localhost:3000/recipes", {
+            const response = await fetch(`${BASE_URL}/recipes`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -207,9 +208,9 @@ const AddRecipes = () => {
                                         value={resep.bahan}
                                         onChange={handleChange}
                                         placeholder="Contoh format:
-1. 250gr tepung terigu
-2. 2 butir telur
-3. 100ml air"
+                                                     1. 250gr tepung terigu
+                                                     2. 2 butir telur
+                                                     3. 100ml air"
                                         className="w-full h-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 resize-none"
                                         required
                                     />

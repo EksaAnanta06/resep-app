@@ -62,6 +62,7 @@ const Toast = ({ isOpen, onClose, message, type }) => {
 };
 
 export const EditRecipe = () => {
+    const BASE_URL = "https://learners-matching-rwanda-tariff.trycloudflare.com"
     const { id } = useParams();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +93,7 @@ export const EditRecipe = () => {
         }
 
         setIsLoading(true);
-        fetch(`http://localhost:3000/recipes/${id}`, {
+        fetch(`${BASE_URL}/recipes/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -133,7 +134,7 @@ export const EditRecipe = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`http://localhost:3000/recipes/${id}`, {
+            const response = await fetch(`${BASE_URL}/recipes/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
